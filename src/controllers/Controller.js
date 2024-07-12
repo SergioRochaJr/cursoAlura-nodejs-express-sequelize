@@ -12,6 +12,20 @@ class Controller {
             //erro
         }
     }
+
+    async atualiza (req, res){
+        const { id } = req.params;
+        const dadosAtualizados = req.body;
+        try {
+            const foiAtualizado = await this.entidadeService.atualizaRegistro(dadosAtualizados, Number(id));
+            if (!foiAtualizado) {
+                return res.status(400).json({ mensagem: 'registro não atualizado'});
+            }
+            return res.status(200).json(({mensagem: 'Atualizando com sucesso'}));
+        } catch (erro){
+            //erro
+        }
+    }
 }
 
 module.exports = Controller;
